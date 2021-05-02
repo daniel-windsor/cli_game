@@ -7,7 +7,7 @@ namespace cli_game
     public ItemFood()
     {
       verbs.Add(new string[] { "eat", "consume" }, "useItem");
-      verbs.Add(new string[] { "get", "gather", "collect" }, "craftItem");
+      verbs.Add(new string[] { "get", "gather", "collect" }, "getItem");
     }
 
     public override void examineItem()
@@ -17,32 +17,18 @@ namespace cli_game
 
     public override void useItem()
     {
-      if (World.playerInv.numInInventory("food") > 0)
-      {
-        Console.WriteLine("You eat some food");
-        World.pc.deltaHealth(1);
-        World.playerInv.RemoveFromInv("food", 1);
-      }
-      else
-      {
-        Console.WriteLine("You don't have any food");
-      }
+      base.processUseItem("food", 1, "You eat some food", false);
+      World.pc.deltaHealth(1);
     }
 
-    public override void craftItem()
+    public override void getItem()
     {
-      Console.WriteLine("You gather some food");
-      World.pc.deltaStamina(-1);
-      World.playerInv.AddToInv("food", 1);
+      base.processGetItem("food", 1, "You gather some food", true);
     }
 
     public override void discardItem()
     {
-      if (World.playerInv.numInInventory("food") > 0)
-      {
-        Console.WriteLine("You drop some food");
-        World.playerInv.RemoveFromInv("food", 1);
-      }
+      base.processDiscardItem("food", "some");
     }
   }
 }

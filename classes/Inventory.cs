@@ -13,7 +13,12 @@ namespace cli_game
       return 0;
     }
 
-    public bool CheckCraftRequirements(Dictionary<string, int> recipe)
+    public bool isInInventory(string obj)
+    {
+      return (inv.ContainsKey(obj));
+    }
+
+    public bool checkCraftRequirements(Dictionary<string, int> recipe)
     {
       foreach (KeyValuePair<string, int> kvp in recipe)
       {
@@ -22,7 +27,7 @@ namespace cli_game
       return true;
     }
 
-    public void AddToInv(string obj, int num)
+    public void addToInv(string obj, int num)
     {
       if (inv.ContainsKey(obj))
       {
@@ -34,20 +39,25 @@ namespace cli_game
       }
     }
 
-    public void RemoveFromInv(string obj, int num)
+    public bool removeFromInv(string obj, int num)
     {
-      if (inv[obj] - num < 0)
+      if (!inv.ContainsKey(obj))
       {
-        Console.WriteLine("You don't have enough in your inventory");
+        Console.WriteLine("You don't have that in your inventory"); return false;
       }
-      else
-      {
-        inv[obj] -= num;
-        if (inv[obj] == 0) inv.Remove(obj);
-      }
+
+      // if (inv[obj] - num < 0)
+      // {
+      //   Console.WriteLine("You don't have enough in your inventory");
+      //   return false;
+      // }
+
+      inv[obj] -= num;
+      if (inv[obj] == 0) inv.Remove(obj);
+      return true;
     }
 
-    public void PrintInv()
+    public void printInv()
     {
       if (inv.Count == 0)
       {
