@@ -2,23 +2,27 @@ using System;
 
 namespace cli_game
 {
-  class ItemFood : Item
+  class ItemFood : Resource
   {
     public ItemFood()
     {
       verbs.Add(new string[] { "eat", "consume" }, "useItem");
-      verbs.Add(new string[] { "get", "gather", "collect" }, "getItem");
     }
 
-    public override void examineItem()
+    public void examineItem()
     {
       Console.WriteLine("Looks tasty");
     }
 
     public override void useItem()
     {
-      base.processUseItem("food", 1, "You eat some food", false);
-      World.pc.deltaHealth(1);
+      int food = World.playerInv.numInInventory("food");
+      int max = World.pc.MaxHealth - World.pc.Health;
+      int num = r.Next(1, Math.Min(food, max));
+
+      bool success = base.processUseItem("food", num, "You eat some food", false);
+
+      if (success) World.pc.deltaHealth(num);
     }
 
     public override void getItem()
@@ -26,7 +30,7 @@ namespace cli_game
       base.processGetItem("food", 1, "You gather some food", true);
     }
 
-    public override void discardItem()
+    public void discardItem()
     {
       base.processDiscardItem("food", "some");
     }

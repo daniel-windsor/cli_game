@@ -2,23 +2,28 @@ using System;
 
 namespace cli_game
 {
-  class ItemWood : Item
+  class ItemWood : Resource
   {
     public ItemWood()
     {
-      verbs.Add(new string[] { "gather", "collect", "chop", "get" }, "getItem");
-      verbs.Add(new string[] { "burn", "use" }, "useItem");
+      verbs.Add(new string[] { "chop" }, "getItem");
+      verbs.Add(new string[] { "burn" }, "useItem");
     }
 
-    public override void examineItem()
+    public void examineItem()
     {
       Console.WriteLine("Good for crafting. Or burning.");
     }
 
     public override void useItem()
     {
-      base.processUseItem("wood", 1, "You add some wood to the fire", true);
-      World.fire.deltaFire(1);
+      int wood = World.playerInv.numInInventory("wood");
+      int max = 10 - World.fire.Level;
+      int numUsed = r.Next(1, Math.Min(wood, max));
+
+      base.processUseItem("wood", numUsed, "You add some wood to the fire", true);
+
+      World.fire.deltaFire(numUsed);
     }
 
     public override void getItem()
@@ -33,7 +38,7 @@ namespace cli_game
       }
     }
 
-    public override void discardItem()
+    public void discardItem()
     {
       base.processDiscardItem("wood", "some");
     }

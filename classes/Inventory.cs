@@ -5,7 +5,16 @@ namespace cli_game
 {
   class Inventory
   {
-    private static Dictionary<string, int> inv = new Dictionary<string, int>();
+    private static Dictionary<string, int> inv = new Dictionary<string, int>()
+    {
+      // {"wood", 50 },
+      // {"stone", 50 },
+      // {"food", 50 },
+      // {"leaves", 50 },
+      // {"knife", 1},
+      // {"axe", 1},
+    }
+    ;
 
     public int numInInventory(string obj)
     {

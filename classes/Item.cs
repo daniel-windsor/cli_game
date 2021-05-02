@@ -7,6 +7,9 @@ namespace cli_game
 {
   abstract class Item
   {
+
+    protected Random r = new Random();
+
     public Item()
     {
       verbs.Add(new string[] { "examine" }, "examineItem");
@@ -34,14 +37,14 @@ namespace cli_game
       Console.WriteLine("I don't understand");
     }
 
-    abstract public void examineItem();
+    // abstract public void examineItem();
 
     public virtual void useItem()
     {
       Console.WriteLine("You can't use that");
     }
 
-    public void processUseItem(string noun, int num, string output, bool stamina)
+    public bool processUseItem(string noun, int num, string output, bool stamina)
     {
       bool success = World.playerInv.removeFromInv(noun, num);
 
@@ -50,11 +53,13 @@ namespace cli_game
         Console.WriteLine(output);
         if (stamina) World.pc.deltaStamina(-1);
       }
+
+      return success;
     }
 
     public virtual void getItem()
     {
-      Console.WriteLine("You can't make that");
+      Console.WriteLine("You can't get that");
     }
 
     public void processGetItem(string noun, int num, string output, bool stamina)
@@ -83,7 +88,7 @@ namespace cli_game
       }
     }
 
-    abstract public void discardItem();
+    // abstract public void discardItem();
 
     public void processDiscardItem(string noun, string article)
     {

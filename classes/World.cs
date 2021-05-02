@@ -11,6 +11,8 @@ namespace cli_game
     public static Inventory houseInv = new Inventory();
     public static Fire fire = new Fire();
     public Dictionary<Type, object> items = new Dictionary<Type, object>();
+    
+    Random r = new Random();
 
     public World()
     {
@@ -128,7 +130,7 @@ namespace cli_game
         pc.deltaHealth(-delta);
       }
 
-      fire.deltaFire(-3);
+      fire.deltaFire(-r.Next(0, 3));
 
       Day += 1;
     }

@@ -2,18 +2,15 @@ using System;
 
 namespace cli_game
 {
-  class ItemAxe : Item
+  class ItemAxe : Tool
   {
     public ItemAxe()
     {
-      verbs.Add(new string[] { "craft", "make", "fashion" }, "getItem");
-      verbs.Add(new string[] { "use" }, "useItem");
-
       recipe.Add("wood", 5);
       recipe.Add("stone", 2);
     }
 
-    public override void examineItem()
+    public void examineItem()
     {
       Console.WriteLine("A sharp tool of stone and wood");
     }
@@ -22,9 +19,11 @@ namespace cli_game
     {
       if (World.playerInv.isInInventory("axe"))
       {
-        base.processGetItem("wood", 5, "You gather some wood using your axe", true);
+        base.processGetItem("wood", 5, "You gather wood using your axe", true);
+        randDurability();
       }
-      else {
+      else
+      {
         Console.WriteLine("You don't have an axe");
       }
     }
@@ -34,9 +33,15 @@ namespace cli_game
       base.processGetItem("axe", recipe, "You craft an axe from wood and stone", true);
     }
 
-    public override void discardItem()
+    public void discardItem()
     {
       base.processDiscardItem("axe", "the");
+    }
+
+    protected override void breakItem()
+    {
+      Console.WriteLine("Your axe broke");
+      World.playerInv.removeFromInv("axe", 1);
     }
   }
 }

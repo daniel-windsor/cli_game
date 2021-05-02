@@ -2,24 +2,24 @@ using System;
 
 namespace cli_game
 {
-  class ItemStone : Item
+  class ItemStone : Resource
   {
     public ItemStone()
     {
-      verbs.Add(new string[] { "gather", "collect", "mine", "get" }, "getItem");
+      verbs.Add(new string[] { "mine" }, "getItem");
     }
 
-    public override void examineItem()
+    public void examineItem()
     {
       Console.WriteLine("A strong crafting material");
     }
 
     public override void getItem()
     {
-      base.processGetItem("stone", 1, "You gather some stone", true);
+      base.processGetItem("stone", r.Next(1, 2), "You gather some stone", true);
     }
 
-    public override void discardItem()
+    public void discardItem()
     {
       base.processDiscardItem("stone", "some");
     }
