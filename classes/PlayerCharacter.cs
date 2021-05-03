@@ -10,7 +10,7 @@ namespace cli_game
     {
       MaxHealth = 15;
       Health = 10;
-      MaxStamina = 10;
+      MaxStamina = 15;
       Stamina = 10;
 
       createHealthThreshold();
@@ -86,10 +86,10 @@ namespace cli_game
 
     public void sleep()
     {
-      if (World.houseInv.numInInventory("bed") > 0)
+      if (World.worldInv.isInInventory("bed"))
       {
         Console.WriteLine("\nYou awake feeling well rested");
-        Stamina = 15;
+        Stamina = MaxStamina;
       }
       else
       {

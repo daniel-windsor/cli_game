@@ -18,7 +18,7 @@ namespace cli_game
 
     public override void getItem()
     {
-      base.processGetItem("rope", recipe, "You weave plant matter into a strong rope", true);
+      base.processGetItem("rope", recipe, World.playerInv, "You weave plant matter into a strong rope", true);
     }
 
     public void discardItem()

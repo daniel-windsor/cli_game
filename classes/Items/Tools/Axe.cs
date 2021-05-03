@@ -30,7 +30,7 @@ namespace cli_game
 
     public override void getItem()
     {
-      base.processGetItem("axe", recipe, "You craft an axe from wood and stone", true);
+      base.processGetItem("axe", recipe, World.playerInv, "You craft an axe from wood and stone", true);
     }
 
     public void discardItem()

@@ -69,22 +69,25 @@ namespace cli_game
       if (stamina) World.pc.deltaStamina(-1);
     }
 
-    public void processGetItem(string noun, Dictionary<string, int> recipe, string output, bool stamina)
+    public bool processGetItem(string noun, Dictionary<string, int> recipe, Inventory inv, string output, bool stamina)
     {
       if (World.playerInv.checkCraftRequirements(recipe))
       {
         Console.WriteLine(output);
-        World.playerInv.addToInv(noun, 1);
+        inv.addToInv(noun, 1);
         if (stamina) World.pc.deltaStamina(-1);
 
         foreach (KeyValuePair <string, int> kvm in recipe)
         {
           World.playerInv.removeFromInv(kvm.Key, kvm.Value);
         }
+
+        return true;
       }
       else
       {
         Console.WriteLine("You don't have the materials to craft this");
+        return false;
       }
     }
 

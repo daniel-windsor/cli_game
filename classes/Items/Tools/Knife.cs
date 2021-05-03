@@ -16,7 +16,7 @@ namespace cli_game
 
     public override void getItem()
     {
-      base.processGetItem("knife", recipe, "You grind the stone into a rough knife", true);
+      base.processGetItem("knife", recipe, World.playerInv, "You grind the stone into a rough knife", true);
     }
 
     public void discardItem()

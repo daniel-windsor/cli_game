@@ -8,7 +8,7 @@ namespace cli_game
   {
     public static PlayerCharacter pc = new PlayerCharacter();
     public static Inventory playerInv = new Inventory();
-    public static Inventory houseInv = new Inventory();
+    public static Inventory worldInv = new Inventory();
     public static Fire fire = new Fire();
     public Dictionary<Type, object> items = new Dictionary<Type, object>();
     
@@ -20,8 +20,8 @@ namespace cli_game
       loop();
     }
 
-    private int Day
-    { get; set; }
+    public int Day
+    { get; private set; }
 
     public void loop()
     {
