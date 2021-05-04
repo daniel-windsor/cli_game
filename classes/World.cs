@@ -10,6 +10,9 @@ namespace cli_game
     public static Inventory playerInv = new Inventory();
     public static Inventory worldInv = new Inventory();
     public static Fire fire = new Fire();
+
+    
+    // This dictionary stores the item object instances created using reflection
     public Dictionary<Type, object> items = new Dictionary<Type, object>();
     
     Random r = new Random();

@@ -12,14 +12,24 @@ namespace cli_game
 
     public Item()
     {
+
       verbs.Add(new string[] { "examine" }, "examineItem");
       verbs.Add(new string[] { "discard", "drop" }, "discardItem");
     }
 
+      /**
+      This dictionary is used for matching different verbs with particular functions.
+      It's not a one size fits all. You "use" an axe, but you "eat" some food.
+      Both of these words call the same "useItem" function.
+      The ones set here are default for all items
+      **/
     protected Dictionary<string[], string> verbs = new Dictionary<string[], string>();
 
+    // Crafting recipes for each item.  The item is the key, the value is number required
     protected Dictionary<string, int> recipe = new Dictionary<string, int>();
 
+
+    // Takes the verb from user input, checks each key array for its presence then executes the associated function using reflection
     public void PerformAction(string verb)
     {
       foreach (KeyValuePair<string[], string> kvm in verbs)
@@ -44,6 +54,10 @@ namespace cli_game
       Console.WriteLine("You can't use that");
     }
 
+    /**
+    useItem is overrided in the children items. The override method then calls this method passing it item specific parameters.
+    Ideally, useItem would be overloaded, but because I've used reflection to call the method, there isn't an easy way to pass parameters directly
+    **/
     public bool processUseItem(string noun, int num, string output, bool stamina)
     {
       bool success = World.playerInv.removeFromInv(noun, num);

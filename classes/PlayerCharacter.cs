@@ -98,6 +98,7 @@ namespace cli_game
       }
     }
 
+    // Adjusts the 'cutoff' values for each health threshold based on current max health value
     private void createHealthThreshold()
     {
       int b1 = (int)Math.Ceiling((decimal)MaxHealth / 2);
