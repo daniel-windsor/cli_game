@@ -1,14 +1,12 @@
-﻿using System;
-using System.Reflection;
-using System.Collections.Generic;
+﻿using cli_game.Models;
 
 namespace cli_game
 {
-  class Program
-  {
-    static void Main(string[] args)
+    internal class Program
     {
-      World w = new World();
+        private static void Main(string[] args)
+        {
+            var w = new World();
+        }
     }
-  }
 }
