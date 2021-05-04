@@ -31,6 +31,7 @@ namespace cli_game.Models
         public void PerformAction(string verb)
         {
             foreach (var (key, value) in Verbs)
+            {
                 if (key.Any(s => s.Contains(verb)))
                 {
                     var type = GetType();
@@ -39,6 +40,7 @@ namespace cli_game.Models
                     method?.Invoke(this, null);
                     return;
                 }
+            }
 
             Console.WriteLine("I don't understand");
         }
@@ -62,7 +64,10 @@ namespace cli_game.Models
             if (success)
             {
                 Console.WriteLine(output);
-                if (stamina) World.Pc.DeltaStamina(-1);
+                if (stamina)
+                {
+                    World.Pc.DeltaStamina(-1);
+                }
             }
 
             return success;
@@ -77,7 +82,10 @@ namespace cli_game.Models
         {
             Console.WriteLine(output);
             World.PlayerInv.AddToInv(noun, num);
-            if (stamina) World.Pc.DeltaStamina(-1);
+            if (stamina)
+            {
+                World.Pc.DeltaStamina(-1);
+            }
         }
 
         protected static bool ProcessGetItem(string noun, Dictionary<string, int> recipe, Inventory inv, string output, bool stamina)
@@ -86,9 +94,15 @@ namespace cli_game.Models
             {
                 Console.WriteLine(output);
                 inv.AddToInv(noun, 1);
-                if (stamina) World.Pc.DeltaStamina(-1);
+                if (stamina)
+                {
+                    World.Pc.DeltaStamina(-1);
+                }
 
-                foreach (var kvm in recipe) World.PlayerInv.RemoveFromInv(kvm.Key, kvm.Value);
+                foreach (var kvm in recipe)
+                {
+                    World.PlayerInv.RemoveFromInv(kvm.Key, kvm.Value);
+                }
 
                 return true;
             }
@@ -103,7 +117,10 @@ namespace cli_game.Models
         {
             var success = World.PlayerInv.RemoveFromInv(noun, 1);
 
-            if (success) Console.WriteLine($"You drop {article} {noun}");
+            if (success)
+            {
+                Console.WriteLine($"You drop {article} {noun}");
+            }
         }
     }
 }

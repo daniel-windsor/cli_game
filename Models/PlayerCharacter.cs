@@ -31,7 +31,7 @@ namespace cli_game.Models
 
         private int[] HealthThreshold { get; set; }
 
-        private int MaxStamina { get; set; }
+        private int MaxStamina { get; }
 
         public int Stamina { get; private set; }
 
@@ -50,28 +50,45 @@ namespace cli_game.Models
             else
             {
                 Health += delta;
-                if (delta > 0) Console.WriteLine("\nYou feel a little better");
+                if (delta > 0)
+                {
+                    Console.WriteLine("\nYou feel a little better");
+                }
             }
 
             foreach (var i in HealthThreshold)
+            {
                 if (prevHealth >= i && Health < i || prevHealth < i && Health >= i)
                 {
                     PrintHealthStatus();
                     return;
                 }
+            }
         }
 
         public void RandHealth(int num)
         {
             var rand = _random.Next(0, 10);
-            if (rand <= 2) DeltaHealth(num);
+            if (rand <= 2)
+            {
+                DeltaHealth(num);
+            }
         }
 
         public void DeltaStamina(int delta)
         {
-            if (Stamina + delta > MaxStamina) Stamina = MaxStamina;
-            else if (Stamina + delta < 0) Stamina = 0;
-            else Stamina += delta;
+            if (Stamina + delta > MaxStamina)
+            {
+                Stamina = MaxStamina;
+            }
+            else if (Stamina + delta < 0)
+            {
+                Stamina = 0;
+            }
+            else
+            {
+                Stamina += delta;
+            }
 
             switch (Stamina)
             {
@@ -108,11 +125,26 @@ namespace cli_game.Models
 
         public void PrintHealthStatus()
         {
-            if (Health >= HealthThreshold[0]) Console.WriteLine("\nYou feel in great shape");
-            else if (Health >= HealthThreshold[1]) Console.WriteLine("\nYou feel ok");
-            else if (Health >= HealthThreshold[2]) Console.WriteLine("\nYou are unwell");
-            else if (Health > 1) Console.WriteLine("\nYou are in bad shape");
-            else if (Health == 1) Console.WriteLine("\nYou will perish if your condition does not improve");
+            if (Health >= HealthThreshold[0])
+            {
+                Console.WriteLine("\nYou feel in great shape");
+            }
+            else if (Health >= HealthThreshold[1])
+            {
+                Console.WriteLine("\nYou feel ok");
+            }
+            else if (Health >= HealthThreshold[2])
+            {
+                Console.WriteLine("\nYou are unwell");
+            }
+            else if (Health > 1)
+            {
+                Console.WriteLine("\nYou are in bad shape");
+            }
+            else if (Health == 1)
+            {
+                Console.WriteLine("\nYou will perish if your condition does not improve");
+            }
         }
     }
 }

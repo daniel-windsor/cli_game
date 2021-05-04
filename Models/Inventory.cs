@@ -28,10 +28,12 @@ namespace cli_game.Models
         public bool CheckCraftRequirements(Dictionary<string, int> recipe)
         {
             foreach (var (key, value) in recipe)
+            {
                 if (!_inventory.ContainsKey(key) || _inventory[key] < value)
                 {
                     return false;
                 }
+            }
 
             return true;
         }
@@ -39,9 +41,13 @@ namespace cli_game.Models
         public void AddToInv(string obj, int num)
         {
             if (_inventory.ContainsKey(obj))
+            {
                 _inventory[obj] += num;
+            }
             else
+            {
                 _inventory.Add(obj, num);
+            }
         }
 
         public bool RemoveFromInv(string obj, int num)
@@ -59,17 +65,27 @@ namespace cli_game.Models
             // }
 
             _inventory[obj] -= num;
-            if (_inventory[obj] == 0) _inventory.Remove(obj);
+            if (_inventory[obj] == 0)
+            {
+                _inventory.Remove(obj);
+            }
+
             return true;
         }
 
         public void PrintInv()
         {
             if (_inventory.Count == 0)
+            {
                 Console.WriteLine("Your inventory is empty");
+            }
             else
+            {
                 foreach (var (key, value) in _inventory)
+                {
                     Console.WriteLine($"{key}: {value}");
+                }
+            }
         }
     }
 }

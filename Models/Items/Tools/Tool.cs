@@ -31,7 +31,10 @@ namespace cli_game.Models.Items.Tools
         protected void RandDurability()
         {
             var rand = Random.Next(0, 10);
-            if (rand <= 3) DeltaDurability(-1);
+            if (rand <= 3)
+            {
+                DeltaDurability(-1);
+            }
         }
 
         protected abstract void BreakItem();

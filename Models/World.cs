@@ -10,12 +10,13 @@ namespace cli_game.Models
         public static readonly Inventory WorldInv = new();
         public static readonly Fire Fire = new();
 
-        private readonly Random _random = new();
-        private int Day { get; set; }
-        
         // This dictionary stores the item object instances created using reflection
         private readonly Dictionary<Type, object> _items = new();
 
+        private readonly Random _random = new();
+
+        private int Day { get; set; }
+        
         public World()
         {
             Day = 0;
@@ -35,8 +36,14 @@ namespace cli_game.Models
                 Fire.RandFire(Day);
 
                 //Randomly decrease health based on fire level
-                if (Fire.Level < Fire.FireThreshold[1]) Pc.RandHealth(-1);
-                else if (Fire.Level <= Fire.FireThreshold[2]) Pc.RandHealth(-2);
+                if (Fire.Level < Fire.FireThreshold[1])
+                {
+                    Pc.RandHealth(-1);
+                }
+                else if (Fire.Level <= Fire.FireThreshold[2])
+                {
+                    Pc.RandHealth(-2);
+                }
 
                 //Death check
                 if (Pc.Health == 0)
